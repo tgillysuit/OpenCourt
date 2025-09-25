@@ -12,3 +12,6 @@ Augy Markham, Rebecca Riffle
 - Express server
 - Node
 - React
+
+## NOTES
+- What is Workbench (for accessing mySQL on VM)
