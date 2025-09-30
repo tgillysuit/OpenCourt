@@ -1,11 +1,12 @@
-// import express
-// documentation here: https://expressjs.com/
+const express = require('express')
 
-// initialize express app
+const app = express()
+const port = 3000
 
-// any middleware here
-// - use express.json()
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 
-// use router || get, send on response object
-
-// app listen on port
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
