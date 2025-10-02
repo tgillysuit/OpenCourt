@@ -12,6 +12,7 @@ USER }|--o{ EVENT : hosts
 EVENT ||--o{ LOCATION : has
 USER {
     String username
+    String password
 }
 EVENT {
     DateTime date
