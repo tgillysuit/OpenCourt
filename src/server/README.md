@@ -1,5 +1,11 @@
 # Server
 
+## Quick Start
+- Open folder `cd src/server`
+- Install dependencies `npm i`
+- Launch server `npm run start`
+- Access server at [host]:3000 (example: http://localhost:3000/)
+
 ## CRUD Operations
 1. Users can create events
 2. Users can join events
