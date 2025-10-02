@@ -21,6 +21,10 @@ Augy Markham, Rebecca Riffle
     - Configured Users
     - Configured MySQL Connection
 
+# 10-2
+- Deployed basic server
+- Met with other teams
+
 ### Next Steps
 - Set up very basic minimum server
     - test the output

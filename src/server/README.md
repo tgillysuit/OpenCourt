@@ -1,4 +1,5 @@
 # Server
+The server connects the frontend to the backend via an API.
 
 ## Quick Start
 - Open folder `cd src/server`
@@ -8,15 +9,17 @@
 
 ## CRUD Operations
 1. Users can create events
-2. Users can join events
-3. Users can view events and participants
-4. Hosts can remove users
-5. Hosts can update event details
-6. Users can leave events
-7. Hosts can delete events
+1. Users can join events
+1. Users can view events and participants
+1. Hosts can remove users
+1. Hosts can update event details
+1. Users can leave events
+1. Hosts can delete events
 
 ## Basic Strategy
+```
 /model # db connection
 /controllers # logic
 /routers # routes
 server.js - start server listening on port, use routers
+```
