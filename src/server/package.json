@@ -8,7 +8,7 @@
     "start": "node server.js",
     "pm2": "pm2 start server.js --watch",
     "pm2-stop": "pm2 stop server.js",
-    "pm2-log": "pm2 logs" /* show console logs while running PM2*/
+    "pm2-log": "pm2 logs"
   },
   "author": "",
   "license": "ISC",
