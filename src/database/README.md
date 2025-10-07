@@ -1,5 +1,7 @@
 # Database
 
+`mysql -u root -p`
+
 ## Data Model Planning
 Core Entities: Events, Users, Location
 
