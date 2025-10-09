@@ -1,5 +1,5 @@
 const express = require('express')
-const connection = require('./db')
+const connection = require('./model/db')
 
 const app = express()
 const port = 3000
