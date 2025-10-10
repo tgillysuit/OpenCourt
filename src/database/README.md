@@ -41,7 +41,7 @@ LOCATION {
 | games | | 
 | --- | --- |
 | game_id | PRIMARY KEY |
-| ganes_name | varchar(100) |
+| game_name | varchar(100) |
 | location_id | FOREIGN KEY |
 
 | games_users | | 
