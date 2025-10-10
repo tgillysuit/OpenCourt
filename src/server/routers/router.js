@@ -11,4 +11,4 @@ const router = express.Router();
 router.get('/event', (req, res) => { res.send("GOT EVENT")})
 router.post('/event', (req, res) => { res.send("ADDED EVENT")})
 
-export default router;
+module.exports = router;
