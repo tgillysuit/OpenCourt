@@ -1,5 +1,6 @@
 const express = require('express')
 const router =  require("./routers/router")
+const cors = require('cors');
 
 const app = express()
 const port = 3000
@@ -8,6 +9,7 @@ const port = 3000
 //   res.send('Hello World!!!!!')
 // })
 
+app.use(cors());
 app.use("/", router)
 
 app.listen(port, () => {
