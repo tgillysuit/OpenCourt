@@ -1,5 +1,4 @@
 const express = require('express')
-const connection = require('./model/db')
 const router =  require("./routers/router")
 
 const app = express()

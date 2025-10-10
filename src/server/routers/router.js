@@ -8,7 +8,7 @@ const router = express.Router();
 
 // CRUD
 // EVENT
-router.get('/event', (req, res) => { res.send("GOT EVENT")})
-router.post('/event', (req, res) => { res.send("ADDED EVENT")})
+router.get('/games', controller.getAllGames)
+router.post('/games', (req, res) => { res.send("ADDED EVENT")})
 
 module.exports = router;
