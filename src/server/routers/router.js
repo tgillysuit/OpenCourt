@@ -5,6 +5,7 @@ const controller = require('../controllers/controller')
 // const { getEvent, addEvent } = controller;
 
 const router = express.Router();
+const { getAllGames, getAllUsers, getAllLocations, getAllGamesUsers } = controller;
 
 // CRUD
 // Routes:
@@ -20,7 +21,18 @@ POST
 - a location
 - a game_user
 */
-router.get('/games', controller.getAllGames)
-router.post('/games', (req, res) => { res.send("ADDED EVENT")})
+
+// games
+router.get('/games', getAllGames)
+// router.post('/games', (req, res) => { res.send("ADDED EVENT")})
+
+// users
+router.get('/users', getAllUsers)
+
+// locations
+router.get('/locations', getAllLocations)
+
+// games_users
+router.get('/games-users', getAllGamesUsers)
 
 module.exports = router;
