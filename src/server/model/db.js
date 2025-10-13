@@ -1,5 +1,5 @@
 const mysql = require('mysql2')
-require('dotenv').config({path: '../../../.env'})
+require('dotenv').config({path: '../../.env'})
 
 console.log(process.env.DB_USER)
 
