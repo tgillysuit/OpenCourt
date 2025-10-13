@@ -25,6 +25,7 @@ const addGame = async (req, res) => {
     }
 }
 
+// Users
 const getAllUsers = async (req, res) => {
     try {
         const [data] = await db.query('SELECT * FROM users');
@@ -35,12 +36,37 @@ const getAllUsers = async (req, res) => {
     }
 }
 
+const addUser = async (req, res) => {
+    try {
+        const { user_name } = req.body;
+        // TODO: Add validation
+        const [result] = await db.query('INSERT INTO users (user_name) VALUES (?)', [user_name]);
+        res.status(201).json({ id: result.insertId })
+    } catch (err) {
+        console.error('DB error in addUser:', err);
+        res.status(500).json({ error: 'Internal server error' })
+    }
+}
+
+// Locations
 const getAllLocations = async (req, res) => {
     try {
         const [data] = await db.query('SELECT * FROM locations');
         res.json(data).status(201);
     } catch (err) {
         console.error('DB error in getAllLocations:', err);
+        res.status(500).json({ error: 'Internal server error' })
+    }
+}
+
+const addLocation = async (req, res) => {
+    try {
+        const { location_name, address } = req.body;
+        // TODO: Add validation
+        const [result] = await db.query('INSERT INTO locations (location_name, address) VALUES (?)', [location_name], [address]);
+        res.status(201).json({ id: result.insertId })
+    } catch (err) {
+        console.error('DB error in addLocation:', err);
         res.status(500).json({ error: 'Internal server error' })
     }
 }
@@ -55,4 +81,4 @@ const getAllGamesUsers = async (req, res) => {
     }
 }
 
-module.exports = {getAllGames, addGame, getAllUsers, getAllLocations, getAllGamesUsers };
+module.exports = {getAllGames, addGame, getAllUsers, addUser, getAllLocations, addLocation, getAllGamesUsers };
