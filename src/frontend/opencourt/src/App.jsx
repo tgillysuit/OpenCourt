@@ -1,7 +1,11 @@
 import './App.css'
 import { useState } from 'react'
 
+
+
 function App() {
+
+  console.log(import.meta.env.VITE_FRONTEND_IP)
 
   // state
   const [games, setGames] = useState();
@@ -9,7 +13,7 @@ function App() {
   // handle game button click
   const onGamesClick = async () => {
     try {
-      const result = await fetch('http://147.182.232.135:3000/games'); //TODO: .env variable here
+      const result = await fetch(`http://${import.meta.env.VITE_FRONTEND_IP}:3000/games`); //TODO: .env variable here
       const data = await result.json();
       
       setGames(data);
