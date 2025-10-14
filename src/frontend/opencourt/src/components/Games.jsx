@@ -38,8 +38,8 @@ function Games(){
     const onGamesClick = async () => {
         try {
         const result = await fetch(`http://${import.meta.env.VITE_FRONTEND_IP}:3000/games`);
-        const data = await result.json();
-        
+        let data = await result.json();
+        data = JSON.stringify(data);
         setGames(data);
         } catch (error) {
         console.log(error)
@@ -50,7 +50,13 @@ function Games(){
         <>
             <h1>Games!!</h1>
             <button onClick={onGamesClick}>All Games</button>
-            <pre>{JSON.stringify(games, null, 2)}</pre>
+            <p>{games}</p>
+            {console.log(games)}
+            {/* <ul>
+                {games.map((game) => {
+                    <li key={game.game_id}>{game.game_name}</li>
+                })}
+            </ul> */}
             <hr></hr>
 
             <h2>Add a Game</h2>
