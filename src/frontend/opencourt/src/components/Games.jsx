@@ -51,7 +51,6 @@ function Games(){
             <h1>Games!!</h1>
             <button onClick={onGamesClick}>All Games</button>
             {/* <p>{games}</p> */}
-            {console.log(games)}
             <ul>
                 {games.map((game) => (
                     <li key={game.game_id}>{game.game_name} at location {game.location_id}</li>
