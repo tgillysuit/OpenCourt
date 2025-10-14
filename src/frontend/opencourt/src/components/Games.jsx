@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 function Games(){
-    const [games, setGames] = useState();
+    const [games, setGames] = useState([]);
     const [formData, setFormData] = useState({
         game_name: "",
         location_id: ""
@@ -39,7 +39,7 @@ function Games(){
         try {
         const result = await fetch(`http://${import.meta.env.VITE_FRONTEND_IP}:3000/games`);
         let data = await result.json();
-        data = JSON.stringify(data);
+        // data = JSON.stringify(data);
         setGames(data);
         } catch (error) {
         console.log(error)
@@ -50,13 +50,13 @@ function Games(){
         <>
             <h1>Games!!</h1>
             <button onClick={onGamesClick}>All Games</button>
-            <p>{games}</p>
+            {/* <p>{games}</p> */}
             {console.log(games)}
-            {/* <ul>
-                {games.map((game) => {
-                    <li key={game.game_id}>{game.game_name}</li>
-                })}
-            </ul> */}
+            <ul>
+                {games.map((game) => (
+                    <li key={game.game_id}>{game.game_name} at location {game.location_id}</li>
+                ))}
+            </ul>
             <hr></hr>
 
             <h2>Add a Game</h2>
