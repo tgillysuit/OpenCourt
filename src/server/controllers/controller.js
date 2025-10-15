@@ -60,7 +60,7 @@ const getAllLocations = async (req, res) => {
 }
 
 const addLocation = async (req, res) => {
-    console.log(req.body.location_name)
+    console.log("Address is: ", req.body.address)
     try {
         const { location_name, address } = req.body;
         // TODO: Add validation
