@@ -16,7 +16,6 @@ const addGame = async (req, res) => {
         if (game_name === "" || location_id < 1) {
             res.status(400).json({ error: 'Invalid input'})
         } else {
-            console.log(game_name, location_id)
             const [result] = await db.query('INSERT INTO games (game_name, location_id) VALUES (?, ?)', [game_name, location_id]);
             res.status(201).json({ id: result.insertId })
         }

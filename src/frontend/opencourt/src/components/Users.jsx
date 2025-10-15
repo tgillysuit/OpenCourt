@@ -42,7 +42,7 @@ function Users(){
             let data = await result.json();
             setUsers(data);
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
 

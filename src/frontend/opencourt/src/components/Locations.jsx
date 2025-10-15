@@ -43,7 +43,7 @@ function Locations(){
             let data = await result.json();
             setLocations(data);
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
   

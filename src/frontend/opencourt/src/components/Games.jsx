@@ -43,7 +43,7 @@ function Games(){
             let data = await result.json();
             setGames(data);
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
 
