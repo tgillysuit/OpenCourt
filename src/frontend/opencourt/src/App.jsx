@@ -11,6 +11,7 @@ function App() {
   return (
     <>
       <h1>Open Court</h1>
+      <em>Find a court. Join a game. Play more. Search less.</em>
 
       <section className="users-section">
         <Users />
