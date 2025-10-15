@@ -19,7 +19,7 @@ function Locations(){
           e.preventDefault();
           
           try {
-          const res = await fetch(`http://${import.meta.env.VITE_FRONTEND_IP}:3000/locations`, {
+          const res = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/locations`, {
               method: "POST",
               headers: {"Content-Type": "application/json"},
               body: JSON.stringify(formData)
@@ -36,7 +36,7 @@ function Locations(){
       // TODO: Do something with this
       const onLocationsClick = async () => {
           try {
-            const result = await fetch(`http://${import.meta.env.VITE_FRONTEND_IP}:3000/locations`);
+            const result = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/locations`);
             let data = await result.json();
             setLocations(data);
           } catch (error) {

@@ -19,7 +19,7 @@ function Games(){
         e.preventDefault();
         
         try {
-        const res = await fetch(`http://${import.meta.env.VITE_FRONTEND_IP}:3000/games`, {
+        const res = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/games`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(formData)
@@ -37,7 +37,7 @@ function Games(){
     // TODO: Do something with this
     const onGamesClick = async () => {
         try {
-            const result = await fetch(`http://${import.meta.env.VITE_FRONTEND_IP}:3000/games`);
+            const result = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/games`);
             let data = await result.json();
             setGames(data);
         } catch (error) {
