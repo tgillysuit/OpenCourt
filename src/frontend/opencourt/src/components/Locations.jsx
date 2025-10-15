@@ -47,7 +47,7 @@ function Locations(){
   
       return(
           <>
-              <h1>Locations!!</h1>
+              <h2>Locations!!</h2>
               <button onClick={onLocationsClick}>All Locations</button>
               {console.log(locations)}
               <ul>
@@ -57,7 +57,7 @@ function Locations(){
               </ul>
               <hr></hr>
   
-              <h2>Add a Location</h2>
+              <h3>Add a Location</h3>
               <form onSubmit={handleSubmit}>
                   <div>
                   <label>Location Name:</label>

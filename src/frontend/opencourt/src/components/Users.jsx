@@ -45,7 +45,7 @@ function Users(){
 
     return(
         <>
-            <h1>Users!!</h1>
+            <h2>Users!!</h2>
             <button onClick={onUsersClick}>All Users</button>
             <ul>
                 {users.map((user) => (
@@ -54,7 +54,7 @@ function Users(){
             </ul>
             <hr></hr>
 
-            <h2>Add a User</h2>
+            <h3>Add a User</h3>
             <form onSubmit={handleSubmit}>
                 <div>
                 <label>User Name:</label>

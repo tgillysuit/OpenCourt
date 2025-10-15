@@ -47,7 +47,7 @@ function Games(){
 
     return(
         <>
-            <h1>Games!!</h1>
+            <h2>Games!!</h2>
             <button onClick={onGamesClick}>All Games</button>
             <ul>
                 {games.map((game) => (
@@ -56,7 +56,7 @@ function Games(){
             </ul>
             <hr></hr>
 
-            <h2>Add a Game</h2>
+            <h3>Add a Game</h3>
             <form onSubmit={handleSubmit}>
                 <div>
                 <label>Game Name:</label>
