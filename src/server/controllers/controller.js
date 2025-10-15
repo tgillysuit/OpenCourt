@@ -15,10 +15,11 @@ const addGame = async (req, res) => {
         const { game_name, location_id } = req.body;
         if (game_name === "" || location_id < 1) {
             res.status(400).json({ error: 'Invalid input'})
+        } else {
+            console.log(game_name, location_id)
+            const [result] = await db.query('INSERT INTO games (game_name, location_id) VALUES (?, ?)', [game_name, location_id]);
+            res.status(201).json({ id: result.insertId })
         }
-        console.log(game_name, location_id)
-        const [result] = await db.query('INSERT INTO games (game_name, location_id) VALUES (?, ?)', [game_name, location_id]);
-        res.status(201).json({ id: result.insertId })
     } catch (err) {
         console.error('DB error in addGame:', err);
         res.status(500).json({ error: 'Internal server error' })
@@ -40,9 +41,10 @@ const addUser = async (req, res) => {
         const { user_name } = req.body;
         if (user_name === "") {
             res.status(400).json({ error: 'Invalid input'})
-        }
-        const [result] = await db.query('INSERT INTO users (user_name) VALUES (?)', [user_name]);
-        res.status(201).json({ id: result.insertId })
+        } else {
+            const [result] = await db.query('INSERT INTO users (user_name) VALUES (?)', [user_name]);
+            res.status(201).json({ id: result.insertId })
+        }  
     } catch (err) {
         console.error('DB error in addUser:', err);
         res.status(500).json({ error: 'Internal server error' })
@@ -64,9 +66,10 @@ const addLocation = async (req, res) => {
         const { location_name, address } = req.body;
         if (location_name === "" || address === "") {
             res.status(400).json({ error: 'Invalid input'})
+        } else {
+            const [result] = await db.query('INSERT INTO locations (location_name, address) VALUES (?, ?)', [location_name, address]);
+            res.status(201).json({ id: result.insertId })
         }
-        const [result] = await db.query('INSERT INTO locations (location_name, address) VALUES (?, ?)', [location_name, address]);
-        res.status(201).json({ id: result.insertId })
     } catch (err) {
         console.error('DB error in addLocation:', err);
         res.status(500).json({ error: 'Internal server error' })
