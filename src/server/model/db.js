@@ -1,13 +1,13 @@
 const mysql = require('mysql2')
-require('dotenv').config()
 
-console.log(process.env.DB_USER)
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 
-const connection = mysql.createConnection({
+const db = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME
-})
+}).promise();
 
-connection.connect()
+module.exports = db;
