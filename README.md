@@ -1,8 +1,17 @@
 # OpenCourt
 Find a court. Join a game. Play more. Search less.
 
+
+## Table of Contents
+
 1. [Quick Start](#quick-start)
 1. [Big Picture](#big-picture)
+1. [Feature Breakdown](#feature-breakdown)
+1. [Data Model Planning](#data-model-planning)
+1. [User Experience](#user-experience)
+1. [Local Development Setup](#local-development-setup)
+1. [Environment Variables](#environment-variables)
+1. [Database Setup](#database-setup)
 
 ## Quick Start
 ### 0. Set up database (one time)
@@ -68,6 +77,9 @@ npm run dev
 
 **Problem Statement**: Solves the problem on not being able to find places for open play for sports such as pickleball, basketball, tennis, volleyball, etc.
 
+## Project Description
+OpenCourt solves the problem on not being able to find places for open play for sports such as pickleball, basketball, tennis, volleyball, etc.
+
 **Target Users**: Anyone that wants to play, socialize, or get active.
 
 ### Feature Breakdown
@@ -116,12 +128,62 @@ npm run dev
 7. Hosts can delete events
 
 ### User Experience
+
 **User Flows**:
-- A user can either **host** or **join** an event. 
-    - If they **host** an event, they will determine size of event, location, time, and what sport. 
-        - If a user is hosting they can remove players they don't want. 
-        - Hosts can also delete events.
-    - If they are a **participant** they will review list of events and join the one they would want to partake in. 
-        - Participants can leave / remove themselves from an event.
+A user can either **host** or **participate** in an event. 
+- **Hosts**
+    - determine the event size, sport, location, and time.
+    - can remove players or delete events
+- **Participants**
+    - can browse and join events.
+    - can leave an event anytime.
+
+## Local Development Setup
+### Prerequisistes
+- 
+
+### Steps
+1. Clone the repository
+```
+git clone <repository-url>
+cd OpenCourt
+```
+
+2. Install dependencies
+
+#### Backend:
+```
+cd .\src\server\
+npm i
+```
+
+#### Frontend:
+```
+cd .\src\frontend\opencourt\
+npm i
+```
+
+3. Set up environment variables
+
+See [Environment Variables](#environment-variables)
+
+4. Start the application
+
+See [Instructions for Running the Application](#instructions-for-running-the-application)
 
 
+## Deployment Process
+1. Connect to your VM
+```
+ssh root@<vm-ip>
+```
+2. Navigate to your project directory
+
+Ex. 
+```cd projects/OpenCourt
+```
+
+
+3. Copy and configure environment variables
+```
+cp template.env .env
