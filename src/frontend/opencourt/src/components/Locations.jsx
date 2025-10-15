@@ -30,7 +30,6 @@ function Locations(){
           } catch (err) {
           console.error(err);
           }
-          
       }
   
       // handle game button click 
@@ -49,9 +48,8 @@ function Locations(){
           <>
               <h2>Locations!!</h2>
               <button onClick={onLocationsClick}>All Locations</button>
-              {console.log(locations)}
               <ul>
-                  {locations.map((location) => (
+                  {locations.map((location)  => (
                       <li key={location.location_id}><b>#{location.location_id}</b> {location.location_name}, {location.address}</li>
                   ))}
               </ul>
@@ -63,7 +61,7 @@ function Locations(){
                   <label>Location Name:</label>
                   <input 
                       type="text" 
-                      name= "location_name"
+                      name="location_name"
                       value={formData.location_name}
                       onChange={handleChange}
                   />
@@ -72,8 +70,8 @@ function Locations(){
                   <div>
                   <label>Address:</label>
                   <input 
-                      type= "text" 
-                      name= "address"
+                      type="text" 
+                      name="address"
                       value={formData.address}
                       onChange={handleChange}
                   />
