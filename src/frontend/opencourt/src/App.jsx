@@ -1,19 +1,32 @@
-import './App.css'
+// import './App.css'
+import './Temp.css'
+import Games from './components/Games'
+import Locations from './components/Locations'
+import Users from './components/Users'
+
+
 
 function App() {
-
-  function addEvent({eventId}) {
-    console.log(eventId)
-  }
 
   return (
     <>
       <h1>Open Court</h1>
-      <h2>Add an Event</h2>
-      <form action={addEvent}>
-        <input type="text" name="eventId" value="Add Event Here" />
-        <button type="submit">Add Event</button>
-      </form>
+      <em>Find a court. Join a game. Play more. Search less.</em>
+
+      <section className="users-section">
+        <Users />
+      </section>
+
+      <section className="locations-section">
+        <Locations />
+      </section>
+
+      <section className="games-section">
+        <Games />
+      </section>
+
+      
+      
     </>
   )
 }
