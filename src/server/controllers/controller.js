@@ -1,7 +1,5 @@
 const db = require('../model/db')
 
-// GAMES 
-
 const getAllGames = async (req, res) => {
     try {
         const [data] = await db.query('SELECT * FROM games');
@@ -15,7 +13,9 @@ const getAllGames = async (req, res) => {
 const addGame = async (req, res) => {
     try {
         const { game_name, location_id } = req.body;
-        // TODO: Add validation
+        if (game_name === "" || location_id < 1) {
+            res.status(400).json({ error: 'Invalid input'})
+        }
         console.log(game_name, location_id)
         const [result] = await db.query('INSERT INTO games (game_name, location_id) VALUES (?, ?)', [game_name, location_id]);
         res.status(201).json({ id: result.insertId })
@@ -25,7 +25,6 @@ const addGame = async (req, res) => {
     }
 }
 
-// Users
 const getAllUsers = async (req, res) => {
     try {
         const [data] = await db.query('SELECT * FROM users');
@@ -39,7 +38,9 @@ const getAllUsers = async (req, res) => {
 const addUser = async (req, res) => {
     try {
         const { user_name } = req.body;
-        // TODO: Add validation
+        if (user_name === "") {
+            res.status(400).json({ error: 'Invalid input'})
+        }
         const [result] = await db.query('INSERT INTO users (user_name) VALUES (?)', [user_name]);
         res.status(201).json({ id: result.insertId })
     } catch (err) {
@@ -48,7 +49,6 @@ const addUser = async (req, res) => {
     }
 }
 
-// Locations
 const getAllLocations = async (req, res) => {
     try {
         const [data] = await db.query('SELECT * FROM locations');
@@ -62,7 +62,9 @@ const getAllLocations = async (req, res) => {
 const addLocation = async (req, res) => {
     try {
         const { location_name, address } = req.body;
-        // TODO: Add validation
+        if (location_name === "" || address === "") {
+            res.status(400).json({ error: 'Invalid input'})
+        }
         const [result] = await db.query('INSERT INTO locations (location_name, address) VALUES (?, ?)', [location_name, address]);
         res.status(201).json({ id: result.insertId })
     } catch (err) {
