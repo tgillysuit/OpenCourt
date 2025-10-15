@@ -37,12 +37,11 @@ function Games(){
     // TODO: Do something with this
     const onGamesClick = async () => {
         try {
-        const result = await fetch(`http://${import.meta.env.VITE_FRONTEND_IP}:3000/games`);
-        let data = await result.json();
-        // data = JSON.stringify(data);
-        setGames(data);
+            const result = await fetch(`http://${import.meta.env.VITE_FRONTEND_IP}:3000/games`);
+            let data = await result.json();
+            setGames(data);
         } catch (error) {
-        console.log(error)
+            console.log(error)
         }
     }
 
@@ -50,7 +49,6 @@ function Games(){
         <>
             <h1>Games!!</h1>
             <button onClick={onGamesClick}>All Games</button>
-            {/* <p>{games}</p> */}
             <ul>
                 {games.map((game) => (
                     <li key={game.game_id}>{game.game_name} at location {game.location_id}</li>

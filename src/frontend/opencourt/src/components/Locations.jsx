@@ -36,12 +36,11 @@ function Locations(){
       // TODO: Do something with this
       const onLocationsClick = async () => {
           try {
-          const result = await fetch(`http://${import.meta.env.VITE_FRONTEND_IP}:3000/locations`);
-          let data = await result.json();
-          // data = JSON.stringify(data);
-          setLocations(data);
+            const result = await fetch(`http://${import.meta.env.VITE_FRONTEND_IP}:3000/locations`);
+            let data = await result.json();
+            setLocations(data);
           } catch (error) {
-          console.log(error)
+            console.log(error)
           }
       }
   
