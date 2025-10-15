@@ -64,7 +64,7 @@ const addLocation = async (req, res) => {
     try {
         const { location_name, address } = req.body;
         // TODO: Add validation
-        const [result] = await db.query('INSERT INTO locations (location_name, address) VALUES (?)', [location_name], [address]);
+        const [result] = await db.query('INSERT INTO locations (location_name, address) VALUES (?, ?)', [location_name], [address]);
         res.status(201).json({ id: result.insertId })
     } catch (err) {
         console.error('DB error in addLocation:', err);

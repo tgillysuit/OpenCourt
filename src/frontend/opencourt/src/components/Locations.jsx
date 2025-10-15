@@ -30,12 +30,11 @@ function Locations(){
           } catch (err) {
           console.error(err);
           }
-          
       }
   
       // handle game button click 
       // TODO: Do something with this
-      const onGamesClick = async () => {
+      const onLocationsClick = async () => {
           try {
           const result = await fetch(`http://${import.meta.env.VITE_FRONTEND_IP}:3000/locations`);
           let data = await result.json();
@@ -49,11 +48,9 @@ function Locations(){
       return(
           <>
               <h1>Locations!!</h1>
-              <button onClick={onGamesClick}>All Locations</button>
-              {/* <p>{games}</p> */}
-              {console.log(locations)}
+              <button onClick={onLocationsClick}>All Locations</button>
               <ul>
-                  {locations.map((location) => (
+                  {locations.map((location)  => (
                       <li key={location.location_id}><b>#{location.location_id}</b> {location.location_name}, {location.address}</li>
                   ))}
               </ul>
@@ -65,7 +62,7 @@ function Locations(){
                   <label>Location Name:</label>
                   <input 
                       type="text" 
-                      name= "location_name"
+                      name="location_name"
                       value={formData.location_name}
                       onChange={handleChange}
                   />
@@ -74,8 +71,8 @@ function Locations(){
                   <div>
                   <label>Address:</label>
                   <input 
-                      type= "text" 
-                      name= "address"
+                      type="text" 
+                      name="address"
                       value={formData.address}
                       onChange={handleChange}
                   />
