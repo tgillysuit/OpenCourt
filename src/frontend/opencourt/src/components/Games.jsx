@@ -6,12 +6,13 @@ function Games(){
         game_name: "",
         location_id: ""
     });
+    const [error, setError] = useState("");
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
-        ...prev,
-        [name]: value
+            ...prev,
+            [name]: value
         }));
     };
 
@@ -26,15 +27,16 @@ function Games(){
         })
 
         const data = await res.json();
+        if (data.error) {
+            setError("Invalid Input");
+        }
+        
         setFormData({game_name: "", location_id: ""});
         } catch (err) {
         console.error(err);
         }
-        
     }
 
-    // handle game button click 
-    // TODO: Do something with this
     const onGamesClick = async () => {
         try {
             const result = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/games`);
@@ -47,7 +49,7 @@ function Games(){
 
     return(
         <>
-            <h2>Games!!</h2>
+            <h2>Games</h2>
             <button onClick={onGamesClick}>All Games</button>
             <ul>
                 {games.map((game) => (
@@ -65,6 +67,7 @@ function Games(){
                     name= "game_name"
                     value={formData.game_name}
                     onChange={handleChange}
+                    onFocus={() => error && setError("")}
                 />
                 </div>
 
@@ -75,13 +78,14 @@ function Games(){
                     name= "location_id"
                     value={formData.location_id}
                     onChange={handleChange}
+                    onFocus={() => error && setError("")}
                 />
                 </div>
-            
+                <em>{error}</em>
+                <br />
                 <button type="submit">Add Game</button>
             </form>
-        </>
-        
+        </> 
     )
 }
 

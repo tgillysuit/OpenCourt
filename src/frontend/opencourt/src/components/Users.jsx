@@ -5,12 +5,13 @@ function Users(){
     const [formData, setFormData] = useState({
         user_name: ""
     });
+    const [error, setError] = useState("");
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
-        ...prev,
-        [name]: value
+            ...prev,
+            [name]: value
         }));
     };
 
@@ -25,11 +26,14 @@ function Users(){
         })
 
         const data = await res.json();
+        if (data.error) {
+            setError("Invalid Input");
+        }
+
         setFormData({user_name: ""});
         } catch (err) {
         console.error(err);
         }
-        
     }
 
     const onUsersClick = async () => {
@@ -45,7 +49,7 @@ function Users(){
 
     return(
         <>
-            <h2>Users!!</h2>
+            <h2>Users</h2>
             <button onClick={onUsersClick}>All Users</button>
             <ul>
                 {users.map((user) => (
@@ -63,9 +67,11 @@ function Users(){
                     name= "user_name"
                     value={formData.user_name}
                     onChange={handleChange}
+                    onFocus={() => error && setError("")}
                 />
                 </div>
-            
+                <em>{error}</em>
+                <br />
                 <button type="submit">Add User</button>
             </form>
         </>
