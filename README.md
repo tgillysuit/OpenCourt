@@ -1,21 +1,10 @@
-# OpenCourt
-Find a court. Join a game. Play more. Search less.
-
-
-## Table of Contents
-
-1. [Quick Start](#quick-start)
-1. [Big Picture](#big-picture)
-1. [Feature Breakdown](#feature-breakdown)
-1. [Data Model Planning](#data-model-planning)
-1. [User Experience](#user-experience)
-1. [Local Development Setup](#local-development-setup)
-1. [Environment Variables](#environment-variables)
-1. [Database Setup](#database-setup)
+# DELETE THIS AND RENAME Template.md to README.md
 
 ## Quick Start
+### 0.0 Configure VM
 ### 0. Set up database (one time)
 If you have not yet created your database, follow these steps:
+In your virtual Linux machine, run the following lines to set up the MySQL database:
 - install SQL (if not yet installed)
 ```bash
 sudo apt update
@@ -51,34 +40,7 @@ cp template.env .env
 nano .env # open .env for editing
 ```
 
-### 2. Run Scripts
-
-#### Set up server
-
-Command line from project root:
-```bash
-cd src/server
-npm i
-npm run pm2
-npm run pm2-log
-```
-*Note: If you need to force pm2 to stop, run `npm run pm2-stop`.*
-
-#### Set up frontend
-
-Command line from **server directory**:
-```bash
-cd ../frontend/opencourt
-npm i
-npm run dev
-```
-
 ## Big Picture
-
-**Problem Statement**: Solves the problem on not being able to find places for open play for sports such as pickleball, basketball, tennis, volleyball, etc.
-
-## Project Description
-OpenCourt solves the problem on not being able to find places for open play for sports such as pickleball, basketball, tennis, volleyball, etc.
 
 **Target Users**: Anyone that wants to play, socialize, or get active.
 
