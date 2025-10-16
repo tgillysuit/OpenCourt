@@ -1,52 +1,17 @@
-# DELETE THIS AND RENAME Template.md to README.md
+# Open Court
+*Find a court. Join a game. Play more. Search less.*
 
-## Quick Start
-### 0.0 Configure VM
-### 0. Set up database (one time)
-If you have not yet created your database, follow these steps:
-In your virtual Linux machine, run the following lines to set up the MySQL database:
-- install SQL (if not yet installed)
-```bash
-sudo apt update
-sudo apt install mysql-server
-```
-- Connect to mySQL as root user
-```bash
-mysql -u root -p 
-# When prompted, enter root password
-```
-- Create a new database
-```sql
-CREATE DATABASE open_court 
--- this is the name you will use in the .env 
-```
-- Create a user and grant privileges
-```sql
-CREATE USER 'username'@'0.0.0.0';  -- fix this
-GRANT ALL PRIVELEGES ON open_court TO 'username'@'0.0.0.0'; -- is the 0.0.0.0 right?
-FLUSH PRIVELEGES;
-EXIT;
-```
-**🚩🚩🚩Augy - What was the line to create a user at any ip with a password? (SEE 'Create a user' ABOVE) 🚩🚩🚩**
-- Create tables and add seed data
-Configure a connection to the database in Workbench, then run [create_tables](./src/database/create_tables.sql) to create the tables and [seed_tables](./src/database/seed_tables.sql) to seed the tables with some quick sample data.
+## Table of Contents
+1. [Project Description](#project-description)
+1. [Prerequisites](#prerequisites)
+1. [Building the Application](#building-the-application)
+1. [Running the Application](#running-the-application)
+1. [VM Setup](#vm-setup)
 
-### 1. Set up environmental variables
-Copy the [template.env](./template.env) into a new .env and fill in the variables as indicated in the comments.
+## Project Description
+OpenCourt solves the problem of not being able to easily find open play locations for sports like pickleball, basketball, tennis, volleyball, and more.
 
-Command line from project root:
-```bash
-cp template.env .env
-nano .env # open .env for editing
-```
-
-## Big Picture
-
-**Target Users**: Anyone that wants to play, socialize, or get active.
-
-### Feature Breakdown
-
-**Current MVP Features**: 
+### Current Features
 - End-to-End data
     - MySQL database
         - Tables: users, locations, games, and games_users
@@ -68,7 +33,7 @@ nano .env # open .env for editing
         - Simple, responsive UI
         - useful frontend errors
 
-**Extended Features**: 
+## The Plan
 - Extend CRUD functionality
     - Update: Change locations, times, players, size of party
     - Delete: Remove events, players
@@ -102,50 +67,154 @@ A user can either **host** or **participate** in an event.
 
 ## Local Development Setup
 ### Prerequisistes
-- 
 
-### Steps
-1. Clone the repository
-```
-git clone <repository-url>
-cd OpenCourt
-```
+## Prerequisites
+### [Set up VM](#vm-setup) (Do This First!)
 
-2. Install dependencies
+### Set up Local Database Connection
+1. Open MySQL Workbench
+2. Go to *Database=>Connect to Database*
+3. Fill in the database information you configured in your VM
+- Create the tables by pasting and running the contents of [create_tables](src/database/create_tables.sql) in MySQL Workbench
+- **Optionally** populate the tables using [seed_tables](src/database/seed_tables.sql)
 
-#### Backend:
-```
-cd .\src\server\
-npm i
-```
+## Building the Application
+### Configure environment variables
+1. Duplicate and fill out the [frontend env](src/frontend/opencourt/template.env)
+2. Duplicate and fill out the [root env](template.env)
 
-#### Frontend:
-```
-cd .\src\frontend\opencourt\
-npm i
-```
-
-3. Set up environment variables
-
-See [Environment Variables](#environment-variables)
-
-4. Start the application
-
-See [Instructions for Running the Application](#instructions-for-running-the-application)
-
-
-## Deployment Process
-1. Connect to your VM
-```
-ssh root@<vm-ip>
-```
-2. Navigate to your project directory
-
-Ex. 
-```cd projects/OpenCourt
-```
-
-
-3. Copy and configure environment variables
-```
+#### In Linux (The VM)
+```bash
 cp template.env .env
+nano .env
+# Then fill out the env file
+```
+### Install all packages
+From root, run the following lines to install all required packages:
+```bash
+cd src/server
+npm i
+cd ../frontend/opencourt
+npm i
+```
+## Running the Application
+### Development
+For local development, run:
+```bash
+cd src/server
+npm run pm2
+cd ../frontend/opencourt
+npm run dev
+```
+*Note: If you need to force pm2 to stop, run `npm run pm2-stop`. See [package.json](/src/server/package.json) for more useful server scripts.*
+
+### Deployment - *Frontend and backend both running in the VM*
+
+To deploy, run from the root of the project:
+```bash
+bash start.sh
+```
+
+
+## VM Setup
+1. Open a terminal on your local machine
+1. Log into your VM using your IP Address and Password
+    ```bash
+    ssh root@{vm-ip-address}
+    ```
+### System Setup
+Update the package index and upgrade exisiting packages
+
+```bash
+sudo apt update
+yes | sudo DEBIAN_FRONTEND=noninteractive apt-get -yqq upgrade
+```
+
+### Core Dependencies
+1. Install Git
+    ```bash
+    sudo apt install git
+    ```
+1. Install MySQL
+    ```bash
+    sudo apt install mysql-server
+    ```
+1. Install Node.js using NVM
+    ```bash
+    sudo apt-get install curl
+    ```
+    ```bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+    ```
+    ```bash
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    ```
+    ```bash
+    nvm install --lts
+    ```
+### MySQL Configuration
+#### Modify the bind-address
+1. Open the MySQL config file
+    ```bash
+    sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+    ```
+1. Change the bind-address value from **127.0.0.1**
+ to **0.0.0.0**
+1. Save and exit (Crtl+O, Enter, Ctrl+X)
+#### Create a user
+1. Log into MySQl as root
+    ```bash
+    mysql -u root -p
+    # When prompted, enter root password
+    ```
+1. Create a new user (replace 'student' and 'yourpassword' with your chosen credentials)
+    ```sql
+    CREATE USER 'student'@'%' IDENTIFIED BY 'yourpassword';
+    ```
+#### Give the user external host connection permissions
+1. View your current databases
+    ``` sql
+    SHOW DATABASES;
+    ```
+1. Pick an existing database or create a new one
+    ```sql
+    CREATE DATABASE opencourt;
+    -- this is the name you will use in the .env
+    ```
+1. Grant permissions
+    ```sql
+    GRANT ALL PRIVILEGES ON opencourt.* TO '{your-username}'@'%';
+    FLUSH PRIVILEGES;
+    ```
+1. Verify your permissions
+    ```sql
+    SHOW GRANTS FOR '{your-username}'@'%';
+    ```
+1. Exit
+    ```sql
+    EXIT;
+    ```
+#### Open port 3006 in the firewall
+```bash
+sudo ufw allow 3306/tcp
+sudo ufw reload
+```
+### Process Management
+```bash
+# Install PM2 globally
+npm install -g pm2
+
+# Keep PM2 alive on reboot
+pm2 startup
+pm2 save
+```
+### Application Deployment
+1. Clone this repository into a folder in you VM 
+1. Complete the steps in [Building the Application](#building-the-application) in the VM
+
+To deploy, run from the root of the project:
+```bash
+bash start.sh
+```
