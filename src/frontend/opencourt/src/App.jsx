@@ -4,8 +4,6 @@ import Games from './components/Games'
 import Locations from './components/Locations'
 import Users from './components/Users'
 
-
-
 function App() {
 
   return (
@@ -24,9 +22,6 @@ function App() {
       <section className="games-section">
         <Games />
       </section>
-
-      
-      
     </>
   )
 }

@@ -1,14 +1,12 @@
-# Database
+# Open Court Database
 
-`mysql -u root -p`
-
-## Data Model Planning
+## Data Model Overview
 Core Entities: Events, Users, Location
 
 Key Relationships: Users can host Events, Events can have multiples Users, Events have one location, Locations can host multiple events
 
 
-## Database
+## Tables
 
 | users | | 
 | --- | --- |
@@ -32,5 +30,3 @@ Key Relationships: Users can host Events, Events can have multiples Users, Event
 | game_user_id | PRIMARY KEY |
 | user_id | FOREIGN KEY |
 | game_id | FOREIGN KEY |
-
-SQL Generate script [here](./create_tables.sql).
