@@ -3,6 +3,7 @@
 
 ## Table of Contents
 1. [Project Description](#project-description)
+1. [The Plan](#the-plan)
 1. [Prerequisites](#prerequisites)
 1. [Building the Application](#building-the-application)
 1. [Running the Application](#running-the-application)
@@ -64,9 +65,6 @@ A user can either **host** or **participate** in an event.
 - **Participants**
     - can browse and join events.
     - can leave an event anytime.
-
-## Local Development Setup
-### Prerequisistes
 
 ## Prerequisites
 ### [Set up VM](#vm-setup) (Do This First!)
