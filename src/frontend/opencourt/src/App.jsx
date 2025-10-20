@@ -1,5 +1,5 @@
 //import './Temp.css'
-import './App.css'
+//import './App.css'
 import { useState } from 'react';
 import { AppBar, Toolbar, Button, Typography, Box } from "@mui/material"
 
@@ -25,33 +25,35 @@ function App() {
   };
 
   return (
-    <>
-      <AppBar position="static" 
-      color="primary">
-        <Toolbar sx={{ justifyContent: "space-between" }}>
-          <Button 
-          color="inherit"
-          onClick={() => setActivePage("home")}>
-            Home
-          </Button>
-          <Button 
-          color="inherit"
-          onClick={() => setActivePage("events")}>
-            Events
-          </Button>
-          <Button 
-          color="inherit"
-          onClick={() => setActivePage("confirmations")}>
-            Confirmations
-          </Button>
-        </Toolbar>
-        
-      </AppBar>
 
-      <Box sx={{ padding: 3}}>
-        {renderPage()}
+      <Box sx={{ width: '100vw' }}>
+        <AppBar position="fixed" 
+          color="primary">
+            <Toolbar sx={{ justifyContent: "space-between" }}>
+              <Button 
+              color="inherit"
+              onClick={() => setActivePage("home")}>
+                Home
+              </Button>
+              <Button 
+              color="inherit"
+              onClick={() => setActivePage("events")}>
+                Events
+              </Button>
+              <Button 
+              color="inherit"
+              onClick={() => setActivePage("confirmations")}>
+                Confirmations
+              </Button>
+            </Toolbar>
+          </AppBar>
+          <Box sx={{ padding: 3}}>
+          {renderPage()}
+        </Box>
       </Box>
-    </>
+
+      
+    
   )
 }
 
