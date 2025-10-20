@@ -20,7 +20,7 @@ function Games(){
         e.preventDefault();
         
         try {
-        const res = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/games`, {
+        const res = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}/games`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(formData)
