@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function Locations(){
+function LocationsForm(){
     const [locations, setLocations] = useState([]);
     const [formData, setFormData] = useState({
         location_name: "",
@@ -89,4 +89,4 @@ function Locations(){
       )
   }
 
-export default Locations;
+export default LocationsForm;

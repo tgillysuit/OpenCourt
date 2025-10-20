@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function Games(){
+function GamesForm(){
     const [games, setGames] = useState([]);
     const [formData, setFormData] = useState({
         game_name: "",
@@ -89,4 +89,4 @@ function Games(){
     )
 }
 
-export default Games;
+export default GamesForm;
