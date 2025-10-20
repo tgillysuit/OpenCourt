@@ -1,27 +1,56 @@
-// import './App.css'
-import './Temp.css'
-import Games from './components/Games'
-import Locations from './components/Locations'
-import Users from './components/Users'
+//import './Temp.css'
+import './App.css'
+import { useState } from 'react';
+import { AppBar, Toolbar, Button, Typography, Box } from "@mui/material"
+
+import ConfirmationsPage from './pages/ConfirmationsPage'
+import EventsPage from './pages/EventsPage'
+import HomePage from './pages/HomePage'
+
 
 function App() {
+  const [activePage, setActivePage] = useState("home");
+
+  const renderPage = () => {
+    switch (activePage) {
+      case "home":
+        return <HomePage />
+      case "events":
+        return <EventsPage />
+      case "confirmations":
+        return <ConfirmationsPage />
+      default:
+        return <HomePage />
+    }
+  };
 
   return (
     <>
-      <h1>Open Court</h1>
-      <em>Find a court. Join a game. Play more. Search less.</em>
+      <AppBar position="static" 
+      color="primary">
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Button 
+          color="inherit"
+          onClick={() => setActivePage("home")}>
+            Home
+          </Button>
+          <Button 
+          color="inherit"
+          onClick={() => setActivePage("events")}>
+            Events
+          </Button>
+          <Button 
+          color="inherit"
+          onClick={() => setActivePage("confirmations")}>
+            Confirmations
+          </Button>
+        </Toolbar>
+        
+      </AppBar>
 
-      <section className="users-section">
-        <Users />
-      </section>
-
-      <section className="locations-section">
-        <Locations />
-      </section>
-
-      <section className="games-section">
-        <Games />
-      </section>
+      <Box sx={{ padding: 3}}>
+        {renderPage()}
+      </Box>
     </>
   )
 }
