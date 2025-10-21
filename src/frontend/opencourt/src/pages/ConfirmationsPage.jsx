@@ -1,7 +1,7 @@
 function ConfirmationsPage() {
     return( 
     <>
-        <h2>View your Confirmations here.</h2>
+        <h2>This will be a confirmation page that an event/location/user was created.</h2>
     </>
     );
 }

@@ -1,10 +1,10 @@
-//import './Temp.css'
+import './Temp.css'
 //import './App.css'
 import { useState } from 'react';
 import { AppBar, Toolbar, Button, Typography, Box } from "@mui/material"
 
 import ConfirmationsPage from './pages/ConfirmationsPage'
-import EventsPage from './pages/EventsPage'
+import EventsPage from './pages/GamesPage'
 import HomePage from './pages/HomePage'
 
 

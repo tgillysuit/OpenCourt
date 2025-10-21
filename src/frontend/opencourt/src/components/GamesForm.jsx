@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Container, Typography, Button, List, ListItem, ListItemText } from "@mui/material";
+
 
 function GamesForm(){
     const [games, setGames] = useState([]);
@@ -48,17 +50,8 @@ function GamesForm(){
     }
 
     return(
-        <>
-            <h2>Games</h2>
-            <button onClick={onGamesClick}>All Games</button>
-            <ul>
-                {games.map((game) => (
-                    <li key={game.game_id}>{game.game_name} at location {game.location_id}</li>
-                ))}
-            </ul>
-            <hr></hr>
-
-            <h3>Add a Game</h3>
+        <Container align="center">
+            <h3>Add an Event</h3>
             <form onSubmit={handleSubmit}>
                 <div>
                 <label>Game Name:</label>
@@ -85,7 +78,7 @@ function GamesForm(){
                 <br />
                 <button type="submit">Add Game</button>
             </form>
-        </> 
+        </Container> 
     )
 }
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, Typography, Button, List, ListItem, ListItemText } from "@mui/material";
+import { Container, Typography, List, ListItem, ListItemText } from "@mui/material";
 import { getGames } from "../api/Games.js";
 
 function Games() {
@@ -9,7 +9,7 @@ function Games() {
     getGames()
       .then(setGames)
       .catch((err) => console.error("Error fetching events:", err));
-  }, []);
+  }, [games]);
 
   return (
     <Container maxWidth="sm" sx={{ mt: 6 }}>
@@ -25,7 +25,7 @@ function Games() {
         <List>
           {games.map((game, index) => (
             <ListItem key={index} divider>
-              <ListItemText primary={`${game.game_name} @ ${game.location_id}`} />
+              <ListItemText primary={`${game.game_name} @ Location #${game.location_id}`} />
             </ListItem>
           ))}
         </List>

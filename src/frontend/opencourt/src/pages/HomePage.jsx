@@ -1,11 +1,17 @@
-import GamesForm from "../components/GamesForm";
+
+import { Container, Typography } from "@mui/material";
+
 
 function HomePage() {
     return( 
-    <>
-        <h2>Welcome to the Home Page!</h2>
-        <GamesForm />
-    </>
+        <Container maxWidth="sm" sx={{ textAlign: "center", mt: 6 }}>
+            <Typography variant="h3" gutterBottom>
+                Welcome to OpenCourt 🏀🎾🏐
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+                Find a court. Join a game. Play more, search less.
+            </Typography>
+        </Container>
     );
 }
 
