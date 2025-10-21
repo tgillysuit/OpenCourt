@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import { Container, Typography, Button, List, ListItem, ListItemText } from "@mui/material";
+import { Container } from "@mui/material";
 
 
 function GamesForm(){
-    const [games, setGames] = useState([]);
     const [formData, setFormData] = useState({
         game_name: "",
         location_id: ""
@@ -36,16 +35,6 @@ function GamesForm(){
         setFormData({game_name: "", location_id: ""});
         } catch (err) {
         console.error(err);
-        }
-    }
-
-    const onGamesClick = async () => {
-        try {
-            const result = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/games`);
-            let data = await result.json();
-            setGames(data);
-        } catch (error) {
-            console.error(error)
         }
     }
 

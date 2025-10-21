@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Container } from "@mui/material";
 
 function Users(){
-    const [users, setUsers] = useState([]);
     const [formData, setFormData] = useState({
         user_name: ""
     });
