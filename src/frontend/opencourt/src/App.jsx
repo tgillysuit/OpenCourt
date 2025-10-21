@@ -1,11 +1,13 @@
 import './Temp.css'
 //import './App.css'
 import { useState } from 'react';
-import { AppBar, Toolbar, Button, Typography, Box } from "@mui/material"
+import { AppBar, Toolbar, Button, Box } from "@mui/material"
 
 import ConfirmationsPage from './pages/ConfirmationsPage'
 import EventsPage from './pages/GamesPage'
 import HomePage from './pages/HomePage'
+import LocationsPage from './pages/LocationsPage'
+import UsersPage from './pages/UsersPage'
 
 
 function App() {
@@ -19,6 +21,10 @@ function App() {
         return <EventsPage />
       case "confirmations":
         return <ConfirmationsPage />
+      case "locations":
+        return <LocationsPage />
+      case "users":
+        return <UsersPage />
       default:
         return <HomePage />
     }
@@ -42,9 +48,20 @@ function App() {
               </Button>
               <Button 
               color="inherit"
+              onClick={() => setActivePage("locations")}>
+                Locations
+              </Button>
+              <Button 
+              color="inherit"
+              onClick={() => setActivePage("users")}>
+                Users
+              </Button>
+              <Button 
+              color="inherit"
               onClick={() => setActivePage("confirmations")}>
                 Confirmations
               </Button>
+              
             </Toolbar>
           </AppBar>
           <Box sx={{ padding: 3}}>

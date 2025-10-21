@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Container } from "@mui/material";
 
 function Users(){
     const [users, setUsers] = useState([]);
@@ -36,28 +37,8 @@ function Users(){
         }
     }
 
-    const onUsersClick = async () => {
-        try {
-            const result = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/users`);
-            let data = await result.json();
-            setUsers(data);
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-
     return(
-        <>
-            <h2>Users</h2>
-            <button onClick={onUsersClick}>All Users</button>
-            <ul>
-                {users.map((user) => (
-                    <li key={user.user_id}>{user.user_name}</li>
-                ))}
-            </ul>
-            <hr></hr>
-
+        <Container align="center">
             <h3>Add a User</h3>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -74,7 +55,7 @@ function Users(){
                 <br />
                 <button type="submit">Add User</button>
             </form>
-        </>
+        </Container>
     )
 }
 

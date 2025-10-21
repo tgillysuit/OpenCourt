@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import { Container } from "@mui/material";
 
 function LocationsForm(){
-    const [locations, setLocations] = useState([]);
     const [formData, setFormData] = useState({
         location_name: "",
         address: ""
@@ -37,26 +37,9 @@ function LocationsForm(){
         }
     }
   
-    const onLocationsClick = async () => {
-        try {
-            const result = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/locations`);
-            let data = await result.json();
-            setLocations(data);
-        } catch (error) {
-            console.error(error)
-        }
-    }
-  
     return(
-        <>
-            <h2>Locations</h2>
-            <button onClick={onLocationsClick}>All Locations</button>
-            <ul>
-                {locations.map((location)  => (
-                    <li key={location.location_id}><b>#{location.location_id}</b> {location.location_name}, {location.address}</li>
-                ))}
-            </ul>
-            <hr></hr>
+        <Container align="center">
+            
 
             <h3>Add a Location</h3>
             <form onSubmit={handleSubmit}>
@@ -85,7 +68,7 @@ function LocationsForm(){
                 <br />
                 <button type="submit">Add Location</button>
             </form>
-        </> 
+        </Container> 
       )
   }
 
