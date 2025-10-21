@@ -1,81 +1,39 @@
-import { useState } from 'react'
+import { useState, useEffect } from "react";
+import { Container, Typography, List, ListItem, ListItemText } from "@mui/material";
+import { getUsers } from "../api/Users";
 
-function Users(){
-    const [users, setUsers] = useState([]);
-    const [formData, setFormData] = useState({
-        user_name: ""
-    });
-    const [error, setError] = useState("");
+function Users() {
+  const [users, setUsers] = useState([]);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value
-        }));
-    };
+  useEffect(() => {
+    getUsers()
+      .then(setUsers)
+      .catch((err) => console.error("Error fetching events:", err));
+  }, [users]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        
-        try {
-        const res = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/users`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(formData)
-        })
+  return (
+    <Container maxWidth="sm" sx={{ mt: 6 }}>
+      <Typography variant="h4" gutterBottom align="center">
+        Created Users
+      </Typography>
 
-        const data = await res.json();
-        if (data.error) {
-            setError("Invalid Input");
-        }
+      {users.length === 0 ? (
+        <Typography variant="body1" align="center">
+          No users yet. Create one!
+        </Typography>
+      ) : (
+        <List>
+          {users.map((user, index) => (
+            <ListItem key={index} divider>
+              <ListItemText primary={`${user.user_id} | ${user.user_name}`} />
+            </ListItem>
+          ))}
+        </List>
+      )}
 
-        setFormData({user_name: ""});
-        } catch (err) {
-        console.error(err);
-        }
-    }
-
-    const onUsersClick = async () => {
-        try {
-            const result = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/users`);
-            let data = await result.json();
-            setUsers(data);
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-
-    return(
-        <>
-            <h2>Users</h2>
-            <button onClick={onUsersClick}>All Users</button>
-            <ul>
-                {users.map((user) => (
-                    <li key={user.user_id}>{user.user_name}</li>
-                ))}
-            </ul>
-            <hr></hr>
-
-            <h3>Add a User</h3>
-            <form onSubmit={handleSubmit}>
-                <div>
-                <label>User Name:</label>
-                <input 
-                    type="text" 
-                    name= "user_name"
-                    value={formData.user_name}
-                    onChange={handleChange}
-                    onFocus={() => error && setError("")}
-                />
-                </div>
-                <em>{error}</em>
-                <br />
-                <button type="submit">Add User</button>
-            </form>
-        </>
-    )
+    </Container>
+  );
 }
 
 export default Users;
+

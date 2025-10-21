@@ -1,92 +1,38 @@
-import { useState } from 'react'
+import { useState, useEffect } from "react";
+import { Container, Typography, List, ListItem, ListItemText } from "@mui/material";
+import { getGames } from "../api/Games.js";
 
-function Games(){
-    const [games, setGames] = useState([]);
-    const [formData, setFormData] = useState({
-        game_name: "",
-        location_id: ""
-    });
-    const [error, setError] = useState("");
+function Games() {
+  const [games, setGames] = useState([]);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value
-        }));
-    };
+  useEffect(() => {
+    getGames()
+      .then(setGames)
+      .catch((err) => console.error("Error fetching events:", err));
+  }, [games]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        
-        try {
-        const res = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/games`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(formData)
-        })
+  return (
+    <Container maxWidth="sm" sx={{ mt: 6 }}>
+      <Typography variant="h4" gutterBottom align="center">
+        Available Events
+      </Typography>
 
-        const data = await res.json();
-        if (data.error) {
-            setError("Invalid Input");
-        }
-        
-        setFormData({game_name: "", location_id: ""});
-        } catch (err) {
-        console.error(err);
-        }
-    }
+      {games.length === 0 ? (
+        <Typography variant="body1" align="center">
+          No events yet. Create one!
+        </Typography>
+      ) : (
+        <List>
+          {games.map((game, index) => (
+            <ListItem key={index} divider>
+              <ListItemText primary={`${game.game_name} @ Location #${game.location_id}`} />
+            </ListItem>
+          ))}
+        </List>
+      )}
 
-    const onGamesClick = async () => {
-        try {
-            const result = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/games`);
-            let data = await result.json();
-            setGames(data);
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-    return(
-        <>
-            <h2>Games</h2>
-            <button onClick={onGamesClick}>All Games</button>
-            <ul>
-                {games.map((game) => (
-                    <li key={game.game_id}>{game.game_name} at location {game.location_id}</li>
-                ))}
-            </ul>
-            <hr></hr>
-
-            <h3>Add a Game</h3>
-            <form onSubmit={handleSubmit}>
-                <div>
-                <label>Game Name:</label>
-                <input 
-                    type="text" 
-                    name= "game_name"
-                    value={formData.game_name}
-                    onChange={handleChange}
-                    onFocus={() => error && setError("")}
-                />
-                </div>
-
-                <div>
-                <label>Location ID:</label>
-                <input 
-                    type= "number" 
-                    name= "location_id"
-                    value={formData.location_id}
-                    onChange={handleChange}
-                    onFocus={() => error && setError("")}
-                />
-                </div>
-                <em>{error}</em>
-                <br />
-                <button type="submit">Add Game</button>
-            </form>
-        </> 
-    )
+    </Container>
+  );
 }
 
 export default Games;

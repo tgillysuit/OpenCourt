@@ -1,28 +1,76 @@
-// import './App.css'
 import './Temp.css'
-import Games from './components/Games'
-import Locations from './components/Locations'
-import Users from './components/Users'
+//import './App.css'
+import { useState } from 'react';
+import { AppBar, Toolbar, Button, Box } from "@mui/material"
+
+import ConfirmationsPage from './pages/ConfirmationsPage'
+import EventsPage from './pages/GamesPage'
+import HomePage from './pages/HomePage'
+import LocationsPage from './pages/LocationsPage'
+import UsersPage from './pages/UsersPage'
+
 
 function App() {
+  const [activePage, setActivePage] = useState("home");
+
+  const renderPage = () => {
+    switch (activePage) {
+      case "home":
+        return <HomePage />
+      case "events":
+        return <EventsPage />
+      case "confirmations":
+        return <ConfirmationsPage />
+      case "locations":
+        return <LocationsPage />
+      case "users":
+        return <UsersPage />
+      default:
+        return <HomePage />
+    }
+  };
 
   return (
-    <>
-      <h1>Open Court</h1>
-      <em>Find a court. Join a game. Play more. Search less.</em>
 
-      <section className="users-section">
-        <Users />
-      </section>
+      <Box sx={{ width: '100vw' }}>
+        <AppBar position="fixed" 
+          color="primary">
+            <Toolbar sx={{ justifyContent: "space-between" }}>
+              <Button 
+              color="inherit"
+              onClick={() => setActivePage("home")}>
+                Home
+              </Button>
+              <Button 
+              color="inherit"
+              onClick={() => setActivePage("events")}>
+                Events
+              </Button>
+              <Button 
+              color="inherit"
+              onClick={() => setActivePage("locations")}>
+                Locations
+              </Button>
+              <Button 
+              color="inherit"
+              onClick={() => setActivePage("users")}>
+                Users
+              </Button>
+              <Button 
+              color="inherit"
+              onClick={() => setActivePage("confirmations")}>
+                Confirmations
+              </Button>
+              
+            </Toolbar>
+          </AppBar>
+          <Box sx={{ padding: 3}}>
+          {renderPage()}
+        </Box>
+      </Box>
 
-      <section className="locations-section">
-        <Locations />
-      </section>
-
-      <section className="games-section">
-        <Games />
-      </section>
-    </>
+      
+    
   )
 }
 

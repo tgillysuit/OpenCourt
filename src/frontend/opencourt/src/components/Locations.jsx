@@ -1,92 +1,38 @@
-import { useState } from 'react'
+import { useState, useEffect } from "react";
+import { Container, Typography, List, ListItem, ListItemText } from "@mui/material";
+import { getLocations } from "../api/Locations";
 
-function Locations(){
-    const [locations, setLocations] = useState([]);
-    const [formData, setFormData] = useState({
-        location_name: "",
-        address: ""
-    });
-    const [error, setError] = useState("");
-  
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value
-        }));
-    };
+function Locations() {
+  const [locations, setLocations] = useState([]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-          
-        try {
-            const res = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/locations`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(formData)
-        })
+  useEffect(() => {
+    getLocations()
+      .then(setLocations)
+      .catch((err) => console.error("Error fetching events:", err));
+  }, [locations]);
 
-        const data = await res.json();
-            if (data.error) {
-                setError("Invalid Input");
-        }
+  return (
+    <Container maxWidth="sm" sx={{ mt: 6 }}>
+      <Typography variant="h4" gutterBottom align="center">
+        Created Locations
+      </Typography>
 
-        setFormData({location_name: "", address: ""});
-        } catch (err) {
-            console.error(err);
-        }
-    }
-  
-    const onLocationsClick = async () => {
-        try {
-            const result = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/locations`);
-            let data = await result.json();
-            setLocations(data);
-        } catch (error) {
-            console.error(error)
-        }
-    }
-  
-    return(
-        <>
-            <h2>Locations</h2>
-            <button onClick={onLocationsClick}>All Locations</button>
-            <ul>
-                {locations.map((location)  => (
-                    <li key={location.location_id}><b>#{location.location_id}</b> {location.location_name}, {location.address}</li>
-                ))}
-            </ul>
-            <hr></hr>
+      {locations.length === 0 ? (
+        <Typography variant="body1" align="center">
+          No locations yet. Create one!
+        </Typography>
+      ) : (
+        <List>
+          {locations.map((location, index) => (
+            <ListItem key={index} divider>
+              <ListItemText primary={`#${location.location_id}. ${location.location_name} | ${location.address}`} />
+            </ListItem>
+          ))}
+        </List>
+      )}
 
-            <h3>Add a Location</h3>
-            <form onSubmit={handleSubmit}>
-                <div>
-                <label>Location Name:</label>
-                <input 
-                    type="text" 
-                    name="location_name"
-                    value={formData.location_name}
-                    onChange={handleChange}
-                    onFocus={() => error && setError("")}
-                />
-                </div>
-
-                <div>
-                <label>Address:</label>
-                <input 
-                    type="text" 
-                    name="address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    onFocus={() => error && setError("")}
-                />
-                </div>
-                <em>{error}</em>
-                <br />
-                <button type="submit">Add Location</button>
-            </form>
-        </> 
-      )
-  }
+    </Container>
+  );
+}
 
 export default Locations;
