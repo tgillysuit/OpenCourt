@@ -2,7 +2,8 @@
 version: '3.8'
 services:
   backend:
-    build: ./server
+    build: ./server, mysql:8.0 #check if we actually need this 
+    # inside of the compose file or we need to implement inside of the image.
     container_name: node_backend
     ports:
         - 3000:3000
@@ -11,4 +12,9 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=production
+      - DB_HOST=DB_HOST
+      - DB_USER=DB_USER
+      - DB_PASSWORD=DB_PASSWORD
+      - DB_NAME=DB_NAME
+      - DB_PORT=DB_PORT
       - PORT=3000
