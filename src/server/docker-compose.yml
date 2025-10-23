@@ -1,0 +1,14 @@
+# Docker Compose file the backend
+version: '3.8'
+services:
+  backend:
+    build: ./server
+    container_name: node_backend
+    ports:
+        - 3000:3000
+    volumes:
+      - .backend/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
