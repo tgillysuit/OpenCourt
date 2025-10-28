@@ -2,7 +2,7 @@
 version: '3.8'
 services:
   backend:
-    build: ./server
+    build: ./src/server
     ports:
       - 3000:3000
     volumes:
@@ -18,7 +18,7 @@ services:
       NODE_ENV: production
   
   frontend:
-     build: ./frontend/opencourt
+     build: ./src/frontend/opencourt
     
 
   database:
