@@ -3,22 +3,29 @@ version: '3.8'
 services:
   backend:
     build: ./server
-    # inside of the compose file or we need to implement inside of the image.
-    container_name: node_backend
     ports:
-        - 3000:3000
+      - 3000:3000
     volumes:
       - .backend/app
-      - 
       - /app/node_modules
     environment:
-      - NODE_ENV=production
-      - DB_HOST=DB_HOST
-      - DB_USER=DB_USER
-      - DB_PASSWORD=DB_PASSWORD
-      - DB_NAME=DB_NAME
-      - DB_PORT=DB_PORT
-      - PORT=3000
+      DB_HOST: DB_HOST
+      DB_USER: DB_USER
+      DB_PASSWORD: DB_PASSWORD
+      DB_NAME: DB_NAME
+      DB_PORT: DB_PORT
+      PORT: 3000
+      NODE_ENV: production
   
-  db:
+  frontend:
+     build: ./frontend/opencourt
+    
+
+  database:
     image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_USER_PASSWORD: DB_PASSWORD
+      MYSQL_DATABASE: DB_NAME
+    ports: 
+      - "3307:3306"
