@@ -1,1 +1,14 @@
 # Front-end Dockerfile
+FROM node:20-alpine
+
+RUN echo "Frontend setup"
+
+WORKDIR ./opencourt
+
+EXPOSE 5173
+
+ENV NODE_ENV=production
+
+CMD ["npm", "run", "dev", "--", "--host"]
+
+
