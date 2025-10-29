@@ -29,3 +29,63 @@ services:
       MYSQL_DATABASE: DB_NAME
     ports: 
       - "3307:3306"
+
+
+
+
+
+# -------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------
+
+# THIS IS JUST A FOLLOW ALONG BELOW THIS LINE TO UNDERSTAND WHAT WE NEED FOR THIS FILE
+# Docker Compose file - defines and runs multi-container Docker applications
+version: '3.8' # Version of Docker Compose
+
+services: # Defines all containers that will run
+  
+  # App Service (Node.js Application)
+  app:
+    build: ./app  # Where the Docker Image is located
+    ports:
+      - "3000:3000"   # Port mapping: (host:container)
+    environment:  # env variables passed through the container
+      DB_HOST: db     # hostname (uses service name 'db', not 'localhost')
+      DB_USER: root
+      DB_PASSWORD: example
+      DB_NAME: grocery_db
+      DB_PORT: "3306"
+      NODE_ENV: production  # Tells Node.js to run in production mode
+    depends_on: # Defines startup order and dependencies
+      db: # Wait for the 'db' service to be healthy before starting 'app'
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Database Service
+  db:
+    image: mysql:8.0  # Use official MySQL 8.0 image from Docker Hub
+    command: --default-authentication-plugin=mysql_native_password  # Use older auth method of the MySQL image
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: grocery_db
+    ports:
+      - "3306:3306"
+    volumes:  # Persistent storage - data survives beyond the lifecycle of the container
+      - db_data:/var/lib/mysql 
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-pexample"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  # Adminer Service Tool (Database Management Tool)
+  adminer:
+    image: adminer  #lightweight phpMyAdmin alternative
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: unless-stopped
+
+volumes:
+  db_data:  #Named volume for MySQL data
