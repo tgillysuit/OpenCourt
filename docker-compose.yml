@@ -1,91 +1,88 @@
-# Docker Compose file the backend
+# Docker Compose
 version: '3.8'
 services:
-  backend:
-    build: ./src/server
-    ports:
-      - 3000:3000
-    volumes:
-      - .backend/app
-      - /app/node_modules
-    environment:
-      DB_HOST: DB_HOST
-      DB_USER: DB_USER
-      DB_PASSWORD: DB_PASSWORD
-      DB_NAME: DB_NAME
-      DB_PORT: DB_PORT
-      PORT: 3000
-      NODE_ENV: production
-  
-  frontend:
-     build: ./src/frontend/opencourt
-    
 
-  database:
+  # DATABASE SERVICE (MySQL)
+  db:
     image: mysql:8.0
+    container_name: opencourt_db
+    restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_USER_PASSWORD: DB_PASSWORD
-      MYSQL_DATABASE: DB_NAME
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PW}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports: 
-      - "3307:3306"
-
-
-
-
-
-# -------------------------------------------------------------------------------------
-# -------------------------------------------------------------------------------------
-
-# THIS IS JUST A FOLLOW ALONG BELOW THIS LINE TO UNDERSTAND WHAT WE NEED FOR THIS FILE
-# Docker Compose file - defines and runs multi-container Docker applications
-version: '3.8' # Version of Docker Compose
-
-services: # Defines all containers that will run
-  
-  # App Service (Node.js Application)
-  app:
-    build: ./app  # Where the Docker Image is located
-    ports:
-      - "3000:3000"   # Port mapping: (host:container)
-    environment:  # env variables passed through the container
-      DB_HOST: db     # hostname (uses service name 'db', not 'localhost')
-      DB_USER: root
-      DB_PASSWORD: example
-      DB_NAME: grocery_db
-      DB_PORT: "3306"
-      NODE_ENV: production  # Tells Node.js to run in production mode
-    depends_on: # Defines startup order and dependencies
-      db: # Wait for the 'db' service to be healthy before starting 'app'
-        condition: service_healthy
-    restart: unless-stopped
-
-  # Database Service
-  db:
-    image: mysql:8.0  # Use official MySQL 8.0 image from Docker Hub
-    command: --default-authentication-plugin=mysql_native_password  # Use older auth method of the MySQL image
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: grocery_db
-    ports:
       - "3306:3306"
-    volumes:  # Persistent storage - data survives beyond the lifecycle of the container
-      - db_data:/var/lib/mysql 
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./src/database:/docker-entrypoint-initdb.d
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-pexample"]
-      interval: 5s
-      timeout: 3s
-      retries: 10
-    restart: unless-stopped
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PW}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - opencourt-network
 
-  # Adminer Service Tool (Database Management Tool)
-  adminer:
-    image: adminer  #lightweight phpMyAdmin alternative
-    ports:
-      - "8080:8080"
+  # BACKEND SERVICE (Node.js/Express)
+  backend:
+    build: ./src/server
+    container_name: opencourt_backend
+    restart: always
     depends_on:
       - db
-    restart: unless-stopped
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      NODE_ENV: production
+      PORT: "3000"
+    ports:
+      - 3000:3000
+    networks:
+      - opencourt-network
 
+  # FRONTEND SERVICE (Vite/React)
+  frontend:
+    build: 
+      context: ./src/frontend/opencourt
+      dockerfile: Dockerfile
+      args:
+        VITE_SERVER_HOST: localhost
+        VITE_SERVER_PORT: 3000
+    container_name: opencourt_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://localhost:3000
+    ports:
+      - "5173:5173"
+    networks:
+      - opencourt-network
+
+  # ADMINER (light weight data management tool. Like phpmyadmin)
+  adminer:
+    image: adminer
+    container_name: opencourt_adminer
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    networks:
+      - opencourt-network
+
+# VOLUMES (Persistent Storage)
 volumes:
-  db_data:  #Named volume for MySQL data
+  db_data:
+    driver: local
+
+# NETWORKS (Container Communication)
+networks:
+  opencourt-network:
+    driver: bridge

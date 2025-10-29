@@ -3,17 +3,14 @@
 # Base Image
 FROM node:20-alpine
 
-# Install PM2 globally
-RUN npm install -g pm2
-
 # Set working directory
 WORKDIR /app
 
 # Copy package files and install dependencies
-COPY src/server/package*.json ./
+COPY package*.json ./
 
 # Clean installation
-RUN npm ci --only=production
+RUN npm ci
 
 # Copy application code
 COPY . .
@@ -22,7 +19,7 @@ COPY . .
 EXPOSE 3000
 
 # Setting the enviornment
-ENV NODE_ENV=production
+ENV NODE_ENV=development
 
 # Start the app
 CMD ["node", "server.js"]
