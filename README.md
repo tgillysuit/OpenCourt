@@ -216,3 +216,41 @@ To deploy, run from the root of the project:
 ```bash
 bash start.sh
 ```
+
+## Docker Setup
+When using Docker inside of the VM, you will need to modify your `.env` files to make sure the `docker-compose.yml` file works inside of the project.
+
+### Installing Docker onto the VM (Virtual Machine)
+*Steps Coming Soon*
+
+---
+
+#### Modifying your .env files
+1. The .env file that you created earlier, you'll need to access that and add another parameter.
+    ```bash
+    nano .env
+    ```
+2. Inside of the .env file you're going to need to add/edit.
+    ```env
+    DB_HOST=database
+    DB_ROOT_PW=example
+    ```
+    > [!NOTE] Make sure that DB_HOST is set to **database**. This is required for the Docker network to work properly and securely.
+3. Save you credentials out of nano, by doing `CTRL + O`, and then hit `ENTER`.
+4. Next, you'll need to go into the frontend folder and modify that .env file as well.
+    ```bash
+    cd src/frontend/opencourt
+    nano .env
+    ```
+5. Inside of this .env file, you'll need to verify the `VITE_SERVER_HOST` and `VITE_SERVER_PORT` variables are set to the variables below.
+    ```env
+    VITE_SERVER_HOST = "localhost"  
+    VITE_SERVER_PORT = "3000"
+    ```
+6. Save you credentials out of nano, by doing `CTRL + O`, and then hit `ENTER`.
+7. Now you should be able to run the `docker-compose.yml` file from the root of the project.
+    ```bash
+    cd ../../../..
+    docker compose up -d
+    ```
+    
