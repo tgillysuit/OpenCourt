@@ -10,18 +10,16 @@
 sudo -v
 echo "Running install script."
 bash get_docker.sh
+echo "FINISHED INSTALLING DOCKER!"
 
 echo "Starting docker if it hasn't started."
 sudo systemctl start docker
 
+echo "Pulling latest changes from git repo"
 git pull
-echo "Compose docker containers and run"
+
+echo "STARTING OpenCourt's Docker Containers!"
 docker compose up
-echo "Showing status"
-docker ps
 
-
-
-
-
-
+echo "Showing status of the containers for the Project"
+docker compose ps

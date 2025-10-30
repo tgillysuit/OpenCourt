@@ -223,16 +223,7 @@ bash start.sh
 
 ## Docker Setup
 
-### Installing Docker onto the VM (Virtual Machine)
-Inside the root directory run this command to install Docker with the necessary packages and dependencies on your VM.
-```bash
-    bash get_docker.sh
-```
-
-<br>
-
----
-### Modifying your .env files
+### Part 0: Modifying your .env files | <code style="color : red">*IMPORTANT!*</code>
 When using Docker inside of the VM, you will need to modify your `.env` files to make sure the `docker-compose.yml` file works inside of the project. 
 
 ***Steps:***
@@ -259,22 +250,43 @@ When using Docker inside of the VM, you will need to modify your `.env` files to
     VITE_SERVER_PORT = "3000"
     ```
 6. Save you credentials out of nano, by doing `CTRL + O`, and then hit `ENTER`.
+7. Return back to the root directory by doing:
+    ```bash
+        cd ../../../../
+    ```
 
+<br>
 <br>
 
 ---
-### Running Docker
 
-Now you should be able to run the `docker-compose.yml` file from the root directory of the project.
-
-To get back to the root directory, do:
+### Part 1: Installing Docker onto the VM *(Virtual Machine)*
+Inside the root directory run this command to install Docker with the necessary packages and dependencies on your VM, along with starting the docker containers.
 ```bash
-cd ../../../..
+    bash project_INIT.sh    # Runs another shell script - get_docker.sh
 ```
 
-From the root of the project, run:
+<br>
+<br>
+
+---
+### Running Docker and Stopping Docker
+
+Now you should be able to run the `docker-compose.yml` file from the root directory of the project and stop it. 
+
+To Start the Docker Containers, run:
 ```bash
-    docker-compose up -d
+    docker-compose up -d    #This is here in case you need to start the docker containers back up. 
+```
+
+To Stop the Docker Containers, run:
+```bash
+    docker-compose down     #To remove the containers
+```
+or
+
+```bash
+    docker-compose stop     #To NOT remove the containers
 ```
 
 <br>
