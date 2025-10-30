@@ -113,6 +113,8 @@ To deploy, run from the root of the project:
 bash start.sh
 ```
 
+<br>
+<br>
 
 ## VM Setup
 1. Open a terminal on your local machine
@@ -216,16 +218,25 @@ To deploy, run from the root of the project:
 ```bash
 bash start.sh
 ```
+<br>
+<br>
 
 ## Docker Setup
-When using Docker inside of the VM, you will need to modify your `.env` files to make sure the `docker-compose.yml` file works inside of the project.
 
 ### Installing Docker onto the VM (Virtual Machine)
-*Steps Coming Soon*
+Inside the root directory run this command to install Docker with the necessary packages and dependencies on your VM.
+```bash
+    bash get_docker.sh
+```
+
+<br>
 
 ---
+### Modifying your .env files
+When using Docker inside of the VM, you will need to modify your `.env` files to make sure the `docker-compose.yml` file works inside of the project. 
 
-#### Modifying your .env files
+***Steps:***
+
 1. The .env file that you created earlier, you'll need to access that and add another parameter.
     ```bash
     nano .env
@@ -235,7 +246,7 @@ When using Docker inside of the VM, you will need to modify your `.env` files to
     DB_HOST=database
     DB_ROOT_PW=example
     ```
-    > [!NOTE] Make sure that DB_HOST is set to **database**. This is required for the Docker network to work properly and securely.
+    ##### <code style="color : Yellow">*!!! Make sure that DB_HOST is set to **database**. This is required for the Docker network to work properly and securely.*</code>
 3. Save you credentials out of nano, by doing `CTRL + O`, and then hit `ENTER`.
 4. Next, you'll need to go into the frontend folder and modify that .env file as well.
     ```bash
@@ -248,9 +259,44 @@ When using Docker inside of the VM, you will need to modify your `.env` files to
     VITE_SERVER_PORT = "3000"
     ```
 6. Save you credentials out of nano, by doing `CTRL + O`, and then hit `ENTER`.
-7. Now you should be able to run the `docker-compose.yml` file from the root of the project.
-    ```bash
-    cd ../../../..
-    docker compose up -d
-    ```
+
+<br>
+
+---
+### Running Docker
+
+Now you should be able to run the `docker-compose.yml` file from the root directory of the project.
+
+To get back to the root directory, do:
+```bash
+cd ../../../..
+```
+
+From the root of the project, run:
+```bash
+    docker-compose up -d
+```
+
+<br>
+
+**To visit the Frontend page, navigate to `http://{vm-ip-address}:5174`**
+<br>
+<br>
+
+## How to use Adminer
+1. Open a web browser and navigate to `http://{vm-ip-address}:8081`
+2. Fill in the login credentials as follows:
+   - System: MySQL
+   - Server: database
+   - Username: {your-username}
+   - Password: {your-password}
+   - Database: opencourt
+3. Click "Login" to access the database management interface.
+
+
+---
+
+***If you have any questions about setting up Docker on your VM, talk to Tyler and/or Raymond.***
+
+---
     
