@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# OSTYPE=$(uname -s)
-# if[OSTYPE == "Linux"]; then
-#   SED="sed -i ''"
-# else
-#   SED="sed -i"
-# fi
+OSTYPE=$(uname -s)
+if[OSTYPE == "Linux"]; then
+  SED="sed -i ''"
+else
+  SED="sed -i"
+fi
 
 DB_USER="app_user"
 DB_NAME="opencourt"
