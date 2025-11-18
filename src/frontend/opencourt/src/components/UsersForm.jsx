@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Container } from "@mui/material";
 
-function Users(){
+function Users({onAddUser}){
     const [formData, setFormData] = useState({
         user_name: ""
     });
@@ -19,7 +19,7 @@ function Users(){
         e.preventDefault();
         
         try {
-        const res = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/users`, {
+        const res = await fetch(`/api/users`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(formData)
@@ -29,6 +29,7 @@ function Users(){
         if (data.error) {
             setError("Invalid Input");
         }
+        onAddUser({user_name: formData.user_name});
 
         setFormData({user_name: ""});
         } catch (err) {

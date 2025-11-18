@@ -20,7 +20,7 @@ function LocationsForm(){
         e.preventDefault();
           
         try {
-            const res = await fetch(`http://${import.meta.env.VITE_SERVER_HOST}:3000/locations`, {
+            const res = await fetch(`/api/locations`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(formData)
@@ -30,6 +30,7 @@ function LocationsForm(){
             if (data.error) {
                 setError("Invalid Input");
         }
+
 
         setFormData({location_name: "", address: ""});
         } catch (err) {
