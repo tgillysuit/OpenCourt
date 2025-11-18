@@ -71,12 +71,7 @@ There is currently an issue where when an event, location, or user is added to t
 
 ## Prerequisites
 
-<<<<<<< HEAD
-<br>
-<br>
-=======
 - Docker Desktop (for Local Development): You must have Docker Desktop installed and running on your local machine to use [setup-local.sh](setup-local.sh)
->>>>>>> upstream/main
 
 ## VM Setup
 1. Open a terminal on your local machine
